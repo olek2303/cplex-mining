@@ -21,5 +21,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="yield.dat">
+      <Filter>Pliki źródłowe</Filter>
+    </None>
+    <None Include="yield.mod">
+      <Filter>Pliki źródłowe</Filter>
+    </None>
   </ItemGroup>
 </Project>

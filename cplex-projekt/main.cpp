@@ -6,8 +6,8 @@ using namespace std;
 
 int main() {
 
-	const char* mod_filename = "./mulprod.mod";
-	const char* dat_filename = "./mulprod.dat";
+	const char* mod_filename = "./yield.mod";
+	const char* dat_filename = "./yield.dat";
 	int status = 127;
 
 	IloEnv env;
