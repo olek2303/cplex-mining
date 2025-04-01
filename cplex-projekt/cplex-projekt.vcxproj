@@ -134,11 +134,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mining_solution.cpp" />
+    <ClCompile Include="opl_solution.cpp" />
+    <ClCompile Include="solution.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="yield.dat" />
     <None Include="yield.mod" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="opl_solution.h" />
+    <ClInclude Include="solution.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

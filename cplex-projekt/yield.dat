@@ -1,49 +1,27 @@
-// up to 10% of seats in any category can be transferred to an adjacent category
+Klasy = { "First", "Business", "Economy" };
 
-// current period and two future example
-// Period structure: 
-// [
-//		period1: [option1: [FirstClass, BusinessClass, EconomyClass],
-//			option 2: [FirstClass, BusinessClass, EconomyClass],
-//			option 3: [FirstClass, BusinessClass, EconomyClass]
-//		], ...
-// ]
-// Tabela 2.17 - dane na aktualny okres (1) oraz dwa kolejne
 CurrentTable = [
-	[[1200, 900, 500], [1000, 800, 300], [950, 600, 200]], // period 1 
-	[[1400, 1100, 700], [1300, 900, 400], [1150, 750, 350]], // period 2
-	[[1500, 820, 480], [900, 800, 470], [850, 500, 450]], // period 3 
+	[[1200, 900, 500], [1000, 800, 300], [950, 600, 200]],
+	[[1400, 1100, 700], [1300, 900, 400], [1150, 750, 350]],
+	[[1500, 820, 480], [900, 800, 470], [850, 500, 450]]
 ];
 
-// set Klasy = {Economy, Business, First};
-
-// scenerios - probabilities of the three scenerios in each period
 Scenerios = [0.1, 0.7, 0.2];
 
-// Tabela 12.18 - prognozowany popyt w scenariuszach
 ForecastDemand = [
-    // Okres 1
     [[10, 15, 20], [20, 25, 35], [45, 55, 60]],  // Scenariusz 1
     [[20, 25, 35], [40, 42, 45], [50, 52, 63]],  // Scenariusz 2
-    [[45, 50, 60], [45, 46, 47], [55, 56, 64]],  // Scenariusz 3
-    
-    // Okres 2
+    [[45, 50, 60], [45, 46, 47], [55, 56, 64]],  
     [[20, 25, 35], [42, 45, 46], [50, 52, 60]],
     [[10, 40, 50], [50, 60, 80], [60, 65, 90]],
     [[50, 55, 80], [20, 30, 50], [10, 40, 60]],
-    
-    // Okres 3
     [[30, 35, 40], [40, 50, 55], [50, 60, 80]],
     [[30, 40, 60], [10, 40, 45], [50, 60, 70]],
     [[50, 70, 80], [40, 45, 60], [60, 65, 70]]
 ];
 
-// Tabela 12.19 - Rzeczywisty popyt
 ActualDemand = [
-    // Okres 1
     [[25, 30, 40], [50, 40, 45], [50, 53, 65]],
-    // Okres 2
     [[22, 45, 50], [45, 55, 75], [50, 60, 80]],
-    // Okres 3
     [[45, 60, 75], [20, 40, 50], [55, 60, 75]]
 ];
