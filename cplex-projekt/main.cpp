@@ -5,8 +5,8 @@
 using namespace std;
 
 int main() {
-	cout << endl << "OPL SOLUTION: " << endl;
-	opl_solution();
+	// cout << endl << "OPL SOLUTION: " << endl;
+	// opl_solution();
 
 	cout << endl << "CPLEX SOLUTION: " << endl;
 	// cplex_solution();

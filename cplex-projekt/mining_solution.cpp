@@ -4,12 +4,22 @@ using namespace std;
 
 ILOSTLBEGIN
 
+class MyInfoCallback : public IloCplex::Callback::Function {
+public:
+    void invoke(const IloCplex::Callback::Context& context) override {
+        if (context.inCandidate()) {
+            double objValue = context.getCandidateObjective();
+            std::cout << "[CALLBACK] Najlepsze dotychczasowe rozwi¹zanie: $" << std::fixed << std::setprecision(2) << objValue << std::endl;
+        }
+    }
+};
+
 int mining_solution() {
     try {
         IloEnv env;
         IloModel model(env);
 
-        vector<string> mines= { "MINE1", "MINE2", "MINE3", "MINE4", };
+        vector<string> mines= { "MINE1", "MINE2", "MINE3", "MINE4" };
         vector<string> years= { "YEAR1", "YEAR2", "YEAR3", "YEAR4", "YEAR5"};
 
         map<std::string, std::string> NEXT_YEAR = {
@@ -36,14 +46,11 @@ int mining_solution() {
         };
         
         map<std::string, double> year_disc;
-        double blend_price = 10;
-        double rev_disc_rate = 0.1;
+        double blend_price = 10;        // cena za tone zblendowana
+        double rev_disc_rate = 0.1;     // znizka 
         for (size_t i = 0; i < years.size(); i++) {
             year_disc[years[i]] = pow(1 / (1 + rev_disc_rate), i);
         }
-
-        std::cout << "Wszystkie zmienne zosta³y poprawnie zadeklarowane." << std::endl;
-
 
         IloNumVarArray make(env, years.size(), 0, IloInfinity, ILOFLOAT);
         IloNumVarArray extract(env, mines.size() * years.size(), 0, IloInfinity, ILOFLOAT);
@@ -94,15 +101,18 @@ int mining_solution() {
 
         // Rozwi¹zanie
         IloCplex cplex(model);
-        if (cplex.solve()) {
-            std::cout << "Profit of $" << std::fixed << std::setprecision(2) << cplex.getObjValue() << std::endl;
+        auto callback = new MyInfoCallback();
+        cplex.use(callback, IloCplex::Callback::Context::Id::Candidate);
 
-            std::cout << "=== PRODUCING PLAN ===" << std::endl;
+        if (cplex.solve()) {
+            std::cout << "Zysk $" << std::fixed << std::setprecision(2) << cplex.getObjValue() << std::endl;
+            std::cout << "PLAN PRODUKCJI" << std::endl;
+
             for (size_t i = 0; i < years.size(); i++) {
                 std::cout << years[i] << ": " << cplex.getValue(make[i]) << " tons" << std::endl;
             }
 
-            std::cout << "\n=== EXTRACTION PLAN ===" << std::endl;
+            std::cout << "\nPLAN WYDOBYCIA" << std::endl;
             for (size_t i = 0; i < years.size(); i++) {
                 std::cout << years[i] << ": ";
                 for (size_t j = 0; j < mines.size(); j++) {
